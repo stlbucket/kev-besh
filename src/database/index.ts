@@ -15,7 +15,7 @@ const dialect = new PostgresDialect({
 // Dialect is passed to Kysely's constructor, and from now on, Kysely knows how 
 // to communicate with your database.
 export const db = new Kysely<Database>({
-  dialect,
+  dialect
 })
 
 export * as query from './query'
