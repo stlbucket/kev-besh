@@ -1,6 +1,6 @@
 // src/modules/authen.ts
 import { Elysia, t } from 'elysia'
-import { supabase } from '../../database/supabase' 
+import { useSupabaseClient } from '../../database/supabase' 
 import { authModel } from './auth-model'
 import { cookie } from '@elysiajs/cookie'
 
@@ -14,7 +14,7 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-up',
         async ({ body }) => {
-          const { data, error } = await supabase.auth.signUp(body) 
+          const { data, error } = await useSupabaseClient('auth').auth.signUp(body) 
           if (error) return error 
           return data.user 
         },
@@ -25,7 +25,7 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-in',
         async ({ body }) => {
-          const { data, error } = await supabase.auth.signInWithPassword(body) 
+          const { data, error } = await useSupabaseClient('auth').auth.signInWithPassword(body) 
           if (error) return error 
           return data.user 
         },
@@ -36,7 +36,7 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-in-otp',
         async ({ body }) => {
-          const { data, error } = await supabase.auth.signInWithOtp(body) 
+          const { data, error } = await useSupabaseClient('auth').auth.signInWithOtp(body) 
           if (error) return error 
           return data.user 
         },
@@ -47,7 +47,7 @@ const auth = (app: Elysia) =>
       .get( 
         '/refresh', 
         async ({ setCookie, cookie: { refresh_token } }) => { 
-          const { data, error } = await supabase.auth.refreshSession({ 
+          const { data, error } = await useSupabaseClient('auth').auth.refreshSession({ 
             refresh_token 
           }) 
           if (error) return error 

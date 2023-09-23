@@ -1,15 +1,16 @@
 import { Elysia } from 'elysia'
 import * as elements from "typed-html";
 import {query} from '../../database'
-import { AppResident } from '../../database/types/db.app'
+import {useSupabaseClient} from '../../database/supabase'
 
 const DemoResidentsRoute = (app: Elysia) =>
     app
     .state('plugin-version', 1)
     .get('/demo-app-residents', async () => {
-      const result = await query.app.demoResidents()
-      console.log(result)
-      return <ResidentList Residents={result} />;
+      const { data, error } = await useSupabaseClient('app_api')
+        .rpc('demo_profile_residencies')
+      
+      return <ResidentList Residents={data} />;
     })
 
 

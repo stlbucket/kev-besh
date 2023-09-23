@@ -3,4 +3,18 @@ import { createClient } from '@supabase/supabase-js'
 
 const { SUPABASE_URL, SUPABASE_KEY } = process.env
 
-export const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!)
+export const useSupabaseClient = (schema: string) => {
+  return createClient(SUPABASE_URL!, SUPABASE_KEY!, {
+    db: {
+      schema: schema,
+    },
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true
+    },
+    global: {
+      // headers: { 'x-my-custom-header': 'my-app-name' },
+    },
+  })
+}
