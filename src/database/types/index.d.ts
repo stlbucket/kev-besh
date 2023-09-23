@@ -22,11 +22,6 @@ export * from msg_api
 export * from todo
 export * from todo_api
 
-interface AppApi {
-  demoResidents: app_api.Database.demo_profile_residencies
-}
+type Resident = app.app.Database.resident
 
-export interface Database {
-  profile: app.Database.profile
-  resident: app.Database.resident
-}
+export {Resident}

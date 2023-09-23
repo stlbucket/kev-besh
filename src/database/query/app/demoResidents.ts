@@ -1,11 +1,10 @@
-import {db} from '../..'
-import { AppResident } from '../../types/db.app'
+import {useSupabaseClient} from '../../../database/supabase'
 
-export const demoResidents = async (): Promise<AppResident[]> => {
-  const result = await db
-  .selectFrom('app.resident')
-  .selectAll()
-  .execute()
+const demoResidents = async () => {
+  const result = await useSupabaseClient('app_api')
+  .rpc('demo_profile_residencies')
 
   return result
 }
+
+export { demoResidents }
