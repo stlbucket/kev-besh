@@ -44,6 +44,15 @@ const auth = (app: Elysia) =>
           body: 'signInWithOtp'
         }
       )
+      .post(
+        '/login',
+        async ({ body }) => {
+          return body.email
+        },
+        {
+          body: 'signInWithOtp'
+        }
+      )
       .get( 
         '/refresh', 
         async ({ setCookie, cookie: { refresh_token } }) => { 
