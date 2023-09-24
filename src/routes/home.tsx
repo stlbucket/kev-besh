@@ -1,35 +1,16 @@
 import { Elysia } from 'elysia'
 import * as elements from "typed-html";
+import { BaseHtml } from './app/components/_common/BaseHtml';
+import { HeaderBar } from './app/components/_common/HeaderBar';
+import { LeftNav } from './app/components/_common/LeftNav';
+import { Page } from './app/components/_common/Page';
 
 const HomeRoute = new Elysia()
     .state('plugin-version', 1)
-    .get("/", ({ html }) =>
-      html(
-        <BaseHtml>
-          <body
-            class="flex w-full h-screen justify-center items-center bg-green-400"
-            hx-get="/demo-app-residents"
-            hx-swap="innerHTML"
-            hx-trigger="load"
-          />
-        </BaseHtml>
-      )
-    )
+    .get("/", ({ html }) => {
+      const path = '/demo-app-residents'
+      return Page({html, path})
+    })
 
 export { HomeRoute }
 
-const BaseHtml = ({ children }: elements.Children) => `
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THE BESH STACK</title>
-  <script src="https://unpkg.com/htmx.org@1.9.3"></script>
-  <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
-  <link href="/styles.css" rel="stylesheet">
-</head>
-
-${children}
-`;

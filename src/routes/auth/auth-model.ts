@@ -18,8 +18,8 @@ const authModel
     .model({ 
       signInWithOtp: t.Object({ 
           email: t.String({ 
-              format: 'email' 
-          }) 
+            format: 'email'
+          })
       }) 
     }) 
   )

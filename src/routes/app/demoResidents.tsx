@@ -8,8 +8,7 @@ const DemoResidentsRoute = (app: Elysia) =>
     .state('plugin-version', 1)
     .get('/demo-app-residents', async () => {
       const {data , error} = await query.app.demoResidents()
-      
-      return <ResidentList Residents={data} />;
+      return <ResidentList residents={data} />;
     })
 
 
