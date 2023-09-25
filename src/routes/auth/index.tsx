@@ -53,8 +53,17 @@ const auth = (app: Elysia) =>
       )
       .get(
         '/sign-out',
-        async ({ set, cookie }) => {
-          return LogoutPage()
+        async ({ set, cookie, removeCookie }) => {
+          // const accessToken = cookie['sb-access-token']
+          // const refreshToken = cookie['sb-refresh-token']
+          // cookie['sb-access-token'].remove()
+          // cookie['sb-refresh-token'].remove()
+          // removeCookie('sb-access-token')
+          // removeCookie('sb-refresh-token')
+          delete cookie['sb-access-token']
+          delete cookie['sb-refresh-token']
+          
+          set.redirect = '/'
         }
       )
       .get(
