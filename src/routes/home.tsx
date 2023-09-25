@@ -1,8 +1,4 @@
-import { Elysia } from 'elysia'
-import * as elements from "typed-html";
-import { BaseHtml } from './app/components/_common/BaseHtml';
-import { HeaderBar } from './app/components/_common/HeaderBar';
-import { LeftNav } from './app/components/_common/LeftNav';
+import { Elysia, t } from 'elysia'
 import { Page } from './app/components/_common/Page';
 
 const HomeRoute = new Elysia()

@@ -19,6 +19,7 @@
   "dependencies": {
     "@elysiajs/cookie": "^0.7.0",
     "@elysiajs/html": "^0.7.0",
+    "@elysiajs/static": "^0.7.1",
     "@supabase/supabase-js": "^2.36.0",
     "elysia": "^0.7.12",
     "pg": "^8.11.3"

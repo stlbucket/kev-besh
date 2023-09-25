@@ -1,11 +1,9 @@
-// src/modules/authen.ts
 import { Elysia, t } from 'elysia'
 import { useSupabaseClient } from '../../database/supabase' 
 import { authModel } from './auth-model'
 import { cookie } from '@elysiajs/cookie'
 import { User } from './components/User'
 import { Page } from '../app/components/_common/Page'
-import { UserLogout } from './components/UserLogout'
 import { LogoutPage } from './components/LogoutPage'
 
 const auth = (app: Elysia) =>
@@ -38,20 +36,6 @@ const auth = (app: Elysia) =>
         }
       )
       .post(
-        '/sign-out',
-        async ({ set, cookie }) => {
-          return LogoutPage()
-        //   const { error } = await useSupabaseClient('auth').auth.signOut({
-        //     scope: 'global'
-        //   })
-        //   if (error) return error 
-
-        //   delete cookie['sb-access-token']
-        //   delete cookie['sb-refresh-token']
-        //   set.redirect = '/'
-        }
-      )
-      .post(
         '/sign-in-otp',
         async ({ body, headers, set }) => {
           const { data, error } = await useSupabaseClient('auth').auth.signInWithOtp({
@@ -65,6 +49,12 @@ const auth = (app: Elysia) =>
         },
         {
           body: 'signInWithOtp'
+        }
+      )
+      .get(
+        '/sign-out',
+        async ({ set, cookie }) => {
+          return LogoutPage()
         }
       )
       .get(
@@ -101,25 +91,6 @@ const auth = (app: Elysia) =>
             })
 
             return User(session)
-          }
-        }
-      ) 
-      .get( 
-        '/user-logout', 
-        async ({ cookie }) => { 
-          const client = await useSupabaseClient('auth')
-          const accessToken = cookie['sb-access-token']
-          const refreshToken = cookie['sb-refresh-token']
-
-          if (!accessToken || !refreshToken) {
-            return 'no user'
-          } else {
-            const session = await client.auth.setSession({
-              refresh_token: refreshToken,
-              access_token: accessToken,
-            })
-
-            return UserLogout(session)
           }
         }
       ) 
