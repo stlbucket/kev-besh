@@ -1,6 +1,6 @@
 import { Elysia, t } from 'elysia'
 import { useSupabaseClient } from '../../../supabase'
-import { authModel } from './model'
+import { authModel } from '../model'
 
 const ConfirmPlugin = (app: Elysia) =>
   app
