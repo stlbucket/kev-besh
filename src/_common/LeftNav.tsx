@@ -7,6 +7,7 @@ interface NavItem {
 }
 
 export function LeftNav() {
+  // THIS FUNCTION NEEDS TO BE TOTALLY DYNAMIC AND MOVED INTO THE APP PLUGIN
   const navItems: NavItem[] = [
     {
       name: 'home',
@@ -28,7 +29,6 @@ export function LeftNav() {
     </div>
   );
 }
-
 
 function NavItem({ path, label}: NavItem) {
   return (
