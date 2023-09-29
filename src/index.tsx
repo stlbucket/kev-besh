@@ -1,17 +1,21 @@
 import { Elysia, t } from "elysia";
+import { cookie } from '@elysiajs/cookie'
 import { html } from "@elysiajs/html";
 import { staticPlugin } from '@elysiajs/static'
-import * as routes from './routes'
+
+import { AuthPlugin } from './plugins/auth'
+import { AppPlugin } from "./plugins/app"
 
 const app = new Elysia()
   .use(html())
+  .use(cookie({
+    httpOnly: true
+  }))
   .use(staticPlugin())
-  .use(routes.HomeRoute)
-  .use(routes.Auth)
-  .use(routes.App.DemoResidentsRoute)
+  .use(AuthPlugin)
+  .use(AppPlugin)
   .get("/styles.css", () => Bun.file("./tailwind-gen/styles.css"))
-  .get("/supabase-auth.js", () => Bun.file("./public/supabase-auth.js"))
-  // .get("/auth/confirm", () => Bun.file("./public/confirm.html"))
+  .get("/favicon.ico", () => Bun.file("./public/favicon.ico"))
   .listen(3000)
 
   console.log(

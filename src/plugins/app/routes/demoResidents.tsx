@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 import * as elements from "typed-html";
-import {query} from './database'
-import {ResidentList} from './components/resident'
+import {query} from '../database'
+import {ResidentList} from '../components/resident'
 
 const DemoResidentsRoute = (app: Elysia) =>
     app
