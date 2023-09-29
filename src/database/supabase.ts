@@ -28,7 +28,6 @@ export const useSupabaseClient = async (schema: string, cookie?: Record<string, 
   if (cookie) {
     const loggedIn = cookie['logged-in'] === 'true'
     if (loggedIn) {
-      console.log('setting session')
       const accessToken: string = cookie['sb-access-token']
       const refreshToken = cookie['sb-refresh-token']
       await client.auth.setSession({

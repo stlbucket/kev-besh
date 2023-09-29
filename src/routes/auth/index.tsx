@@ -39,10 +39,11 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-in-otp',
         async ({ body, headers, set }) => {
+          console.log('headers', headers)
           const { data, error } = await (await useSupabaseClient('auth')).auth.signInWithOtp({
             email: body.email,
             options: {
-              emailRedirectTo: `${headers.referer}auth/confirm`,
+              emailRedirectTo: `${headers.origin}/auth/confirm`,
             }            
           }) 
           if (error) return error 
@@ -83,8 +84,6 @@ const auth = (app: Elysia) =>
           const client = await useSupabaseClient('auth', cookie)
           await client.auth.signOut()
           setCookie('logged-in', 'false')
-          const user = await client.auth.getUser()
-          console.log('signed-out', user)
           set.redirect = '/'          
         }
       )
@@ -105,12 +104,10 @@ const auth = (app: Elysia) =>
           const client = (await useSupabaseClient('auth', cookie))
 
           try {
-            console.log('getting session')
             const session = await client.auth.getSession()
-            console.log('session', session)
             return User(session)  
           } catch (e) {
-            console.log(e)
+            console.log('GET USER ERROR', e)
             return 'no user'
           }
         }
