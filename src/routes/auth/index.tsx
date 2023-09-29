@@ -5,6 +5,7 @@ import { cookie } from '@elysiajs/cookie'
 import { User } from './components/User'
 import { Page } from '../app/components/_common/Page'
 import { LogoutPage } from './components/LogoutPage'
+import { Cookie } from 'elysia'
 
 const auth = (app: Elysia) =>
   app.group('/auth', (app) =>
@@ -16,7 +17,7 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-up',
         async ({ body }) => {
-          const { data, error } = await useSupabaseClient('auth').auth.signUp(body) 
+          const { data, error } = await (await useSupabaseClient('auth')).auth.signUp(body) 
           if (error) return error 
           return data.user 
         },
@@ -27,7 +28,7 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-in',
         async ({ body }) => {
-          const { data, error } = await useSupabaseClient('auth').auth.signInWithPassword(body) 
+          const { data, error } = await (await useSupabaseClient('auth')).auth.signInWithPassword(body)
           if (error) return error 
           return data.user 
         },
@@ -38,45 +39,59 @@ const auth = (app: Elysia) =>
       .post(
         '/sign-in-otp',
         async ({ body, headers, set }) => {
-          const { data, error } = await useSupabaseClient('auth').auth.signInWithOtp({
+          const { data, error } = await (await useSupabaseClient('auth')).auth.signInWithOtp({
             email: body.email,
             options: {
               emailRedirectTo: `${headers.referer}auth/confirm`,
             }            
           }) 
           if (error) return error 
-          return data
+          return '<a href="http://localhost:54324/monitor">in-bucket</a>'
         },
         {
           body: 'signInWithOtp'
         }
       )
       .get(
-        '/sign-out',
-        async ({ set, cookie, removeCookie }) => {
-          // const accessToken = cookie['sb-access-token']
-          // const refreshToken = cookie['sb-refresh-token']
-          // cookie['sb-access-token'].remove()
-          // cookie['sb-refresh-token'].remove()
-          // removeCookie('sb-access-token')
-          // removeCookie('sb-refresh-token')
-          delete cookie['sb-access-token']
-          delete cookie['sb-refresh-token']
-          
-          set.redirect = '/'
+        '/confirm',
+        async ({ set, query, headers, cookie, setCookie }) => {
+          const code = query.code
+          if (!code) {
+            set.redirect = '/'
+          } else {
+            const client = await useSupabaseClient('auth')
+            const { data, error } = await client.auth.exchangeCodeForSession(code)
+            await client.auth.setSession({
+              access_token: data.session.access_token,
+              refresh_token: data.session.refresh_token,
+              auth: {
+                persistSession: false
+              }
+            })
+            await client.auth.getUser()
+            setCookie('sb-access-token', data.session.access_token)
+            setCookie('sb-refresh-token', data.session.refresh_token)
+            setCookie('logged-in', 'true')
+
+            set.redirect = '/'
+          }
         }
       )
-      .get(
-        '/confirm',
-        async ({ set, query, headers, cookie }) => {
-          const accessToken = cookie['sb-access-token']
-          set.redirect = '/'
+      .post(
+        '/sign-out',
+        async ({ set, cookie, setCookie }) => {
+          const client = await useSupabaseClient('auth', cookie)
+          await client.auth.signOut()
+          setCookie('logged-in', 'false')
+          const user = await client.auth.getUser()
+          console.log('signed-out', user)
+          set.redirect = '/'          
         }
       )
       .get( 
         '/refresh', 
         async ({ setCookie, cookie: { refresh_token } }) => { 
-          const { data, error } = await useSupabaseClient('auth').auth.refreshSession({ 
+          const { data, error } = await (await useSupabaseClient('auth')).auth.refreshSession({ 
             refresh_token 
           }) 
           if (error) return error 
@@ -87,19 +102,16 @@ const auth = (app: Elysia) =>
       .get( 
         '/user', 
         async ({ cookie }) => { 
-          const client = await useSupabaseClient('auth')
-          const accessToken = cookie['sb-access-token']
-          const refreshToken = cookie['sb-refresh-token']
+          const client = (await useSupabaseClient('auth', cookie))
 
-          if (!accessToken || !refreshToken) {
+          try {
+            console.log('getting session')
+            const session = await client.auth.getSession()
+            console.log('session', session)
+            return User(session)  
+          } catch (e) {
+            console.log(e)
             return 'no user'
-          } else {
-            const session = await client.auth.setSession({
-              refresh_token: refreshToken,
-              access_token: accessToken,
-            })
-
-            return User(session)
           }
         }
       ) 
@@ -108,7 +120,22 @@ const auth = (app: Elysia) =>
         async ({ html }) => { 
           return Page({html, path: '/auth/user'})
         }
-      ) 
+      )
+      // .post(
+      //   '/sign-out',
+      //   async ({ set, cookie, removeCookie }) => {
+      //     // const accessToken = cookie['sb-access-token']
+      //     // const refreshToken = cookie['sb-refresh-token']
+      //     // cookie['sb-access-token'].remove()
+      //     // cookie['sb-refresh-token'].remove()
+      //     // removeCookie('sb-access-token')
+      //     // removeCookie('sb-refresh-token')
+      //     delete cookie['sb-access-token']
+      //     delete cookie['sb-refresh-token']
+          
+      //     set.redirect = '/'
+      //   }
+      // )
   )
 
 export { auth }

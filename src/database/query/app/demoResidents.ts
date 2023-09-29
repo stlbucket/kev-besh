@@ -1,8 +1,8 @@
 import {useSupabaseClient} from '../../../database/supabase'
 
 const demoResidents = async () => {
-  const result = await useSupabaseClient('app_api')
-  .rpc('demo_profile_residencies')
+  const result = await (await useSupabaseClient('app_api'))
+    .rpc('demo_profile_residencies')
 
   return result
 }

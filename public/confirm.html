@@ -1,6 +1,4 @@
-import * as elements from "typed-html";
 
-export const BaseHtml = ({ children }: elements.Children) => `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +9,12 @@ export const BaseHtml = ({ children }: elements.Children) => `
   <script src="https://unpkg.com/htmx.org@1.9.3"></script>
   <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <!-- <script src="/supabase-auth.js"></script> -->
   <link href="/styles.css" rel="stylesheet">
 </head>
 
-${children}
-`;
+<body>
+  <div class="flex flex-col w-full h-screen bg-yellow-400" id="app">
+    CONFIRM
+  </div>  
+</body>
