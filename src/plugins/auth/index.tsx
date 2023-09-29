@@ -1,10 +1,10 @@
 import { Elysia } from 'elysia'
 import { AuthApiPlugin } from './api'
-import { AuthRoutesPlugin } from './routes'
+import { AuthPagesPlugin } from './pages'
 
 const AuthPlugin = (app: Elysia) =>
   app
     .use(AuthApiPlugin)
-    .use(AuthRoutesPlugin)
+    .use(AuthPagesPlugin)
 
 export { AuthPlugin }

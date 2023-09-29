@@ -1,10 +1,12 @@
 import { Elysia } from 'elysia'
 // import { AppApiPlugin } from './api'
-import { AppRoutesPlugin } from './routes'
+import { AppFragmentsPlugin } from './fragments'
+import { AppPagesPlugin } from './pages'
 
 const AppPlugin = (app: Elysia) =>
   app
     // .use(AppApiPlugin)
-    .use(AppRoutesPlugin)
+    .use(AppFragmentsPlugin)
+    .use(AppPagesPlugin)
 
 export { AppPlugin }

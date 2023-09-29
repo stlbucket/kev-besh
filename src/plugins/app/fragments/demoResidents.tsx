@@ -3,7 +3,7 @@ import * as elements from "typed-html";
 import {query} from '../database'
 import {ResidentList} from '../components/resident'
 
-const DemoResidentsRoute = (app: Elysia) =>
+const DemoResidents = (app: Elysia) =>
     app
     .state('plugin-version', 1)
     .get('/demo-app-residents', async () => {
@@ -12,5 +12,5 @@ const DemoResidentsRoute = (app: Elysia) =>
     })
 
 
-export { DemoResidentsRoute }
+export { DemoResidents }
 
