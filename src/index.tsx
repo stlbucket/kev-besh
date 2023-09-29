@@ -3,6 +3,8 @@ import { cookie } from '@elysiajs/cookie'
 import { html } from "@elysiajs/html";
 import { staticPlugin } from '@elysiajs/static'
 
+// THESE PLUGINS WILL ROUGHLY CORRELATE TO DATABASE SCHEMAS
+// MSG, LOC, TODO - THESE AND OTHERS WILL BE ADDED LATER
 import { AuthPlugin } from './plugins/auth'
 import { AppPlugin } from "./plugins/app"
 
