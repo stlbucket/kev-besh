@@ -15,7 +15,7 @@ const app = new Elysia()
   .use(AuthPlugin)
   .use(AppPlugin)
   .get("/styles.css", () => Bun.file("./tailwind-gen/styles.css"))
-  .get("/favicon.ico", () => Bun.file("./public/favicon.ico"))
+  .get("/favicon.ico", () => Bun.file("./public/favicon.ico"))  // i don't think this is working correctly
   .listen(3000)
 
   console.log(
