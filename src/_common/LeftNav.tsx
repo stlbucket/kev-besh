@@ -18,6 +18,11 @@ export function LeftNav() {
       path: '/'
     },
     {
+      name: 'demo-residents',
+      label: 'Demo Residents',
+      path: '/app/demo-app-residents'
+    },
+    {
       name: 'my-profile',
       label: 'My Profile',
       path: '/auth/my-profile'
@@ -33,14 +38,14 @@ export function LeftNav() {
   );
 }
 
-function NavItem({ path, label}: NavItem) {
+function NavItem(navItem: NavItem) {
   return (
     <button
       class="flex flex-nowrap bg-red-300" 
-      hx-get={path}
-      hx-target="#app"
+      hx-get={navItem.path}
       hx-boost="true"
       hx-push-url="true"
-    >{label}</button>
+      hx-target="#app"
+    >{navItem.label}</button>
   )
 }

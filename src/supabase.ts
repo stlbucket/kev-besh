@@ -5,6 +5,8 @@ const { SUPABASE_URL, SUPABASE_KEY } = process.env
 
 let clients: any = {}
 
+// WOULD BE COOL TO FOLD THIS IN AS A PLUGIN
+// FOR NOW EACH PACKAGE JUST INCLUDES THIS FILE
 export const useSupabaseClient = async (schema: string, context?: Context) => {
   let client = clients[schema]
   

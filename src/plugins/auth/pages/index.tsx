@@ -1,11 +1,14 @@
 import { Elysia} from 'elysia'
 
-import { MyProfilePlugin } from './my-profile'
+import { MyProfile } from './my-profile'
 
-const AuthPagesPlugin = (app: Elysia) =>
-  app.group('/auth', (app) =>
-    app
-      .use(MyProfilePlugin)
-    )
+const AuthPagesPlugin = (app: Elysia) => {  
+  return app
+    .group('/auth', (app) => {
+      return app
+        .use(MyProfile)
+    }
+  )
+}
 
 export { AuthPagesPlugin }

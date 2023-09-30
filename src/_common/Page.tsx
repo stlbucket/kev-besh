@@ -3,7 +3,7 @@ import { BaseHtml } from './BaseHtml';
 import { HeaderBar } from './HeaderBar';
 import { LeftNav } from './LeftNav';
 
-export const Page = ({html, path}) => {
+export const Page = ({html, content}) => {
   return html(
     <BaseHtml>
       <body>
@@ -12,12 +12,7 @@ export const Page = ({html, path}) => {
           <div class="flex grow bg-gray-400 m-10 h-screen">
             <LeftNav />
             <div class="flex grow flex-col" id="main-content">
-              <div
-                class="bg-blue-400 grow"
-                hx-get={path}
-                hx-swap="innerHTML"
-                hx-trigger="load"
-              ></div>
+              {content}
             </div>
           </div>
         </div>

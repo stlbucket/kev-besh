@@ -574,6 +574,14 @@ video {
   flex-wrap: nowrap;
 }
 
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 .justify-between {
   justify-content: space-between;
 }
@@ -612,6 +620,16 @@ video {
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
+.bg-blue-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(147 197 253 / var(--tw-bg-opacity));
+}
+
 .p-5 {
   padding: 1.25rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
