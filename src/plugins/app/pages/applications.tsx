@@ -8,7 +8,8 @@ const Applications = (app: Elysia) => {
   return app
     .get("/applications", async ({ html }) => {
       const applications = await query.applications()
-      const content = <ApplicationList applications={applications} />;
+      const content = <pre>{JSON.stringify(applications, null, 2)}</pre>
+      // const content = <ApplicationList applications={applications} />;
       return Page({html, content})
     })
   }

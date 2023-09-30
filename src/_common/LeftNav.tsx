@@ -28,9 +28,14 @@ export function LeftNav() {
       path: '/auth/my-profile'
     },
     {
-      name: 'app/applications',
+      name: 'applications',
       label: 'Applications',
       path: '/app/applications'
+    },
+    {
+      name: 'license-packs',
+      label: 'License Packs',
+      path: '/app/license-packs'
     },
 ]
   
