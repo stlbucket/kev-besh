@@ -1,10 +1,11 @@
 import {useSupabaseClient} from '../../../../supabase'
 
-const demoResidents = async () => {
-  const result = await (await useSupabaseClient('app_api'))
-    .rpc('demo_profile_residencies')
-
-  return result
+const applications = async () => {
+  const result = await (await useSupabaseClient('app'))
+    .from('application')
+    .select('*')
+  console.log('result', result.data)
+  return result.data
 }
 
-export { demoResidents }
+export { applications }

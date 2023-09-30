@@ -26,8 +26,13 @@ export function LeftNav() {
       name: 'my-profile',
       label: 'My Profile',
       path: '/auth/my-profile'
-    }
-  ]
+    },
+    {
+      name: 'app/applications',
+      label: 'Applications',
+      path: '/app/applications'
+    },
+]
   
   return (
     <div class="flex flex-col h-full bg-red-200 p-5 gap-2">

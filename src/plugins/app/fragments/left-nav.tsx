@@ -40,7 +40,12 @@ const LeftNav = (app: Elysia) => {
           name: 'my-profile',
           label: 'My Profile',
           path: '/auth/my-profile'
-        }
+        },
+        {
+          name: 'app/applications',
+          label: 'Applications',
+          path: '/app/applications'
+        },
       ]
       
       return (

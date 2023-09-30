@@ -4,9 +4,9 @@ import { Resident } from '../database/types';
 export function ResidentItem({ tenant_name, email, display_name }: Resident) {
   return (
     <tr>
-      <td>${tenant_name}</td>
-      <td>${email}</td>
-      <td>${display_name}</td>
+      <td>{tenant_name}</td>
+      <td>{email}</td>
+      <td>{display_name}</td>
       <td>
         <form hx-post="/auth/api/sign-in-otp">
           <input type="hidden" name='email' value={email}></input>
