@@ -12,6 +12,8 @@ export const Page = ({html, content}) => {
           <div class="flex grow bg-gray-400 m-10 h-screen">
             <LeftNav />
             {/* NOT SURE WHICH LEFT NAV APPROACH IS BETTER -- BOTTOM ONE FLASHES, BUT WE COULD FIX THAT FOR MORE DYNAMIC BEHAVIOR */}
+            {/* PROBABLY WON'T EVEN BE THIS, BUT RATHER A SLIDE-OVER OR SOMETHING */}
+            {/* EACH PLUGIN (app, auth, etc) SHOULD BE ABLE TO REGISTER MODULES AND MENU ITEMS THAT THEN ARE DYNAMICALLY POPULATED BASED ON PERMISSIONS */}
             {/* <div
               hx-get="/app/left-nav"
               hx-trigger="load"
