@@ -12,7 +12,7 @@ const MyProfile = (app: Elysia) => {
 
         try {
           const session = await client.auth.getSession()
-          const content = User(session)
+          const content = User(session.data.session.user)
           return Page({html: context.html, content})
         } catch (e) {
           console.log('GET USER ERROR', e)
