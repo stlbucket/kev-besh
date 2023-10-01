@@ -29,7 +29,7 @@ export const useSupabaseClient = async (schema: string, context?: Context) => {
 
   if (context) {
     const cookie: Record<string,Cookie<any>> = context.cookie
-    const loggedIn = cookie['logged-in'] as unknown as string === 'true'
+    const loggedIn = cookie && cookie['logged-in'] && cookie['logged-in'] as unknown as string === 'true'
     if (loggedIn) {
       const accessToken: string = cookie['sb-access-token'] as unknown as string
       const refreshToken = cookie['sb-refresh-token'] as unknown as string

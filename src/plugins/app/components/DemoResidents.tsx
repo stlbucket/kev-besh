@@ -1,15 +1,15 @@
 import * as elements from "typed-html";
 import { Resident } from '../database/types';
 
-export function ResidentItem({ tenant_name, email, display_name }: Resident) {
+export function DemoResidentItem(resident: Resident) {
   return (
     <tr>
-      <td>{tenant_name}</td>
-      <td>{email}</td>
-      <td>{display_name}</td>
+      <td>{resident.tenant_name}</td>
+      <td>{resident.email}</td>
+      <td>{resident.display_name}</td>
       <td>
         <form hx-post="/auth/api/sign-in-otp">
-          <input type="hidden" name='email' value={email}></input>
+          <input type="hidden" name='email' value={resident.email}></input>
           <input type="submit" value="Login" />
         </form>
       </td>
@@ -17,7 +17,7 @@ export function ResidentItem({ tenant_name, email, display_name }: Resident) {
   );
 }
 
-export function ResidentList({ residents }: { residents: Resident[] }) {
+export function DemoResidentList({ residents }: { residents: Resident[] }) {
   return (
     <div>
       <table class="table delete-row-example">
@@ -31,7 +31,7 @@ export function ResidentList({ residents }: { residents: Resident[] }) {
         </thead>
         <tbody>
           {residents.map((resident) => (
-            <ResidentItem {...resident} />
+            <DemoResidentItem {...resident} />
           ))}
         </tbody>
       </table>

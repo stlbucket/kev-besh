@@ -79,6 +79,35 @@
       end loop;
     END $$;
 
+  with t as (
+    select
+      id, name
+    from app.tenant
+    where type != 'anchor'
+  )
+  , n as (
+    select
+      r.tenant_id
+      ,r.tenant_name
+      ,r.email
+      ,t.name
+      ,t.id as new_tenant_id
+      ,row_number() over(partition by r.email order by random()) as rn
+    from app.resident r
+    cross join t
+    where t.name != r.tenant_name
+    and r.tenant_name != 'Anchor Tenant'
+    order by r.email, r.tenant_name, t.name
+  )
+  select app_fn.invite_user(
+    _tenant_id => n.new_tenant_id::uuid
+    ,_email => n.email::citext
+    ,_assignment_scope => 'user'::app.license_type_assignment_scope
+  )
+  from n
+  where rn < 3
+  ;
+
 -- -------------------------------  DEMO LOCATIONS
     DO $$
     DECLARE

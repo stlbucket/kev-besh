@@ -5,10 +5,11 @@ import {query} from '../database'
 
 const LicensePacks = (app: Elysia) => {
   return app
-    .get("/license-packs", async ({ html }) => {
+    .get("/license-packs", async (context) => {
       const licensePacks = await query.licensePacks()
+      const html = context.html
       const content = <pre>{JSON.stringify(licensePacks, null, 2)}</pre>
-      return Page({html, content})
+      return await Page({html, content, context})
     })
   }
 export { LicensePacks }

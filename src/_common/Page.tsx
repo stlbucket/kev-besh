@@ -3,12 +3,13 @@ import { BaseHtml } from './BaseHtml';
 import { HeaderBar } from './HeaderBar';
 import { LeftNav } from './LeftNav';
 
-export const Page = ({html, content}) => {
+export const Page = async ({html, content, context}) => {
+  const headerBar = await HeaderBar({context})
   return html(
     <BaseHtml>
       <body>
         <div class="flex flex-col w-full h-screen bg-yellow-400" id="app">
-          {<HeaderBar />}
+          {headerBar}
           <div class="flex grow bg-gray-400 m-10 h-screen">
             <LeftNav />
             {/* NOT SURE WHICH LEFT NAV APPROACH IS BETTER -- BOTTOM ONE FLASHES, BUT WE COULD FIX THAT FOR MORE DYNAMIC BEHAVIOR */}

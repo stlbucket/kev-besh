@@ -9,7 +9,7 @@ interface NavItem {
 export function LeftNav() {
   // THIS FUNCTION NEEDS TO BE TOTALLY DYNAMIC AND MOVED INTO THE APP PLUGIN
   // TO MAKE IT SO, I NEED TO ADD SOMETHING TO THE DATABASE - DIDN'T MAKE SENSE TO DO IT WITH VUE
-  // BUT I THINK WITH THIS STACK IT WILL BE SUPER COOL
+  // PRETTY SURE JUST NEED TO PASS PERMISSIONS ARRAY IN HERE AND THEN FILTER THE NAV ITEMS
   
   const navItems: NavItem[] = [
     {
@@ -25,7 +25,7 @@ export function LeftNav() {
     {
       name: 'my-profile',
       label: 'My Profile',
-      path: '/auth/my-profile'
+      path: '/app/my-profile'
     },
     {
       name: 'applications',
