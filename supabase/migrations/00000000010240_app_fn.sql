@@ -119,25 +119,25 @@ CREATE OR REPLACE FUNCTION app_fn.install_anchor_application()
           row(
             'app-user'::citext
             ,'App User'::citext
-            ,'{"p:app-user","p:todo","p:discussions"}'::citext[]
+            ,'{"p:app-user","p:todo","p:discussions","p:tools"}'::citext[]
             ,'user'::app.license_type_assignment_scope
           )::app_fn.license_type_info
           ,row(
             'app-admin'::citext
             ,'App Admin'::citext
-            ,'{"p:app-admin","p:todo","p:todo-admin","p:discussions","p:discussions-admin"}'::citext[]
+            ,'{"p:app-admin","p:todo","p:todo-admin","p:discussions","p:discussions-admin","p:tools"}'::citext[]
             ,'admin'::app.license_type_assignment_scope
           )::app_fn.license_type_info
           ,row(
             'app-admin-super'::citext
             ,'App Super Admin'::citext
-            ,'{"p:app-admin-super","p:app-admin","p:app-admin-support","p:todo","p:todo-admin","p:discussions","p:discussions-admin"}'::citext[]
+            ,'{"p:app-admin-super","p:site-admin","p:app-admin","p:app-admin-support","p:todo","p:todo-admin","p:discussions","p:discussions-admin","p:tools"}'::citext[]
             ,'superadmin'::app.license_type_assignment_scope
           )::app_fn.license_type_info
           ,row(
             'app-admin-support'::citext
             ,'App Support Admin'::citext
-            ,'{"p:app-admin-support","p:todo","p:todo-admin","p:discussions","p:discussions-admin"}'::citext[]
+            ,'{"p:app-admin-support","p:site-admin","p:todo","p:todo-admin","p:discussions","p:discussions-admin","p:tools"}'::citext[]
             ,'support'::app.license_type_assignment_scope
           )::app_fn.license_type_info
           ,row(

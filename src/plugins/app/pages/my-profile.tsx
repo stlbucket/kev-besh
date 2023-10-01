@@ -10,12 +10,12 @@ const MyProfile = (app: Elysia) => {
   return app
   .get( 
     '/my-profile', 
-      async (context) => { 
+      async (context) => {
         try {
-          const client = (await useSupabaseClient('auth', context))
+          const client = (await useSupabaseClient('public', context))
           const session = await client.auth.getSession()
           const user = session?.data?.session?.user          
-          
+
           const userDisplay = User(user || 'no user')
           const residencies = await myProfileResidencies(context)
           const content = <div class="flex flex-col gap-10">

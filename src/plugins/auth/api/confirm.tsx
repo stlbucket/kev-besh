@@ -1,4 +1,4 @@
-import { Elysia, t } from 'elysia'
+import { Context, Elysia, t } from 'elysia'
 import { useSupabaseClient } from '../../../supabase'
 import { authModel } from '../model'
 
@@ -12,7 +12,7 @@ const ConfirmPlugin = (app: Elysia) =>
         if (!code) {
           context.set.redirect = '/'
         } else {
-          const client = await useSupabaseClient('auth', context)
+          const client = await useSupabaseClient('authorization', context)
           const { data, error } = await client.auth.exchangeCodeForSession(code)
           await client.auth.setSession({
             access_token: data.session.access_token,

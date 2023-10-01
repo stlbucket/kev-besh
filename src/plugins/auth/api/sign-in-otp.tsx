@@ -8,7 +8,7 @@ const SignInOtpPlugin = (app: Elysia) =>
     .post(
       '/sign-in-otp',
       async (context) => {
-        const { data, error } = await (await useSupabaseClient('auth', context)).auth.signInWithOtp({
+        const { data, error } = await (await useSupabaseClient('authorization', context)).auth.signInWithOtp({
           email: context.body.email,
           options: {
             emailRedirectTo: `${context.headers.origin}/auth/api/confirm`,
